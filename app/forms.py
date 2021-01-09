@@ -53,7 +53,14 @@ class EditProfileForm(FlaskForm):
 #        except (phonenumbers.phonenumberutil.NumberParseException, ValueError):
 #            raise ValidationError('Invalid phone number')
 
-class AdminForm(FlaskForm):
+class AdminEditUserForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    phone = StringField('Phone', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()])
+    admin = BooleanField('Admin User')
+    submit = SubmitField('Submit')
+
+class AdminAddUserForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     phone = StringField('Phone', validators=[DataRequired()])
     title = StringField('Title', validators=[DataRequired()])
