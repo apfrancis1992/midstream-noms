@@ -1,0 +1,125 @@
+2021-01-09 07:09:34,345 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 07:11:43,585 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 09:27:02,484 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:10:55,376 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:11:03,139 ERROR: Exception on / [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 24, in index
+    return render_template('index.html', title='Home', posts=posts)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
+    ctx.app,
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/apfrancis/flask/noms-dev/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/apfrancis/flask/noms-dev/app/templates/base.html", line 14, in top-level template code
+    {% if user.admin == True %}
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'user' is undefined
+2021-01-09 10:12:03,270 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:12:05,689 ERROR: Exception on / [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 24, in index
+    return render_template('index.html', title='Home', posts=posts)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
+    ctx.app,
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/apfrancis/flask/noms-dev/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/apfrancis/flask/noms-dev/app/templates/base.html", line 15, in top-level template code
+    <a href="{{ url_for('admin') }}">Admin</a>
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2216, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/helpers.py", line 358, in url_for
+    endpoint, values, method=method, force_external=external
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/werkzeug/routing.py", line 2179, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'admin'. Did you mean 'index' instead?
+2021-01-09 10:13:31,541 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:29:24,369 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:29:27,205 ERROR: Exception on /index [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 24, in index
+    return render_template('index.html', title='Home', posts=posts)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
+    ctx.app,
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/apfrancis/flask/noms-dev/app/templates/index.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/apfrancis/flask/noms-dev/app/templates/base.html", line 14, in top-level template code
+    {% if user.admin == True %}
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 471, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'user' is undefined
+2021-01-09 10:30:12,166 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:31:14,804 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:32:32,310 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:32:49,220 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+2021-01-09 10:33:21,562 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
