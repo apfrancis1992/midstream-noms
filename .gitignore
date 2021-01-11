@@ -40,3 +40,5 @@ venv
 app.db
 microblog.log*
 config.py
+logs
+.flaskenv
