@@ -1,49 +1,4 @@
-2021-01-10 17:54:22,286 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 18, in decorated_function
-    user = User.find_by_username(['username'])
-AttributeError: type object 'User' has no attribute 'find_by_username'
-2021-01-10 17:55:33,661 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 17:55:36,553 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 18, in decorated_function
-    user = User.find_user_by_username(['username'])
-AttributeError: type object 'User' has no attribute 'find_user_by_username'
-2021-01-10 18:01:56,257 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 18:06:55,290 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 18:46:03,013 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 18:46:09,497 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 18:47:05,228 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 18:47:33,203 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 18:47:45,029 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 18:47:53,503 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 18:47:57,748 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 19:44:01,166 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
-2021-01-10 19:44:05,369 ERROR: Exception on /user/apfrancis [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2021-01-10 14:29:18,217 ERROR: Exception on /user/apfrancis [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -59,7 +14,7 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 91, in user
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 73, in user
     return render_template('user.html', user=user, posts=posts)
   File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
     ctx.app,
@@ -77,8 +32,11 @@ Traceback (most recent call last):
     {% block content %}
   File "/home/apfrancis/flask/noms-dev/app/templates/user.html", line 10, in block "content"
     {% if user.is_admin() %}<p>{{ user.access }}</p>{% endif %}
-jinja2.exceptions.UndefinedError: 'app.models.User object' has no attribute 'is_admin'
-2021-01-10 19:44:07,266 ERROR: Exception on /user/apfrancis [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+  File "/home/apfrancis/flask/noms-dev/app/models.py", line 36, in is_admin
+    return self.access == access_id
+NameError: name 'access_id' is not defined
+2021-01-10 14:29:54,220 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 14:30:00,704 ERROR: Exception on /user/apfrancis [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -94,7 +52,7 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 91, in user
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 73, in user
     return render_template('user.html', user=user, posts=posts)
   File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
     ctx.app,
@@ -112,5 +70,51 @@ Traceback (most recent call last):
     {% block content %}
   File "/home/apfrancis/flask/noms-dev/app/templates/user.html", line 10, in block "content"
     {% if user.is_admin() %}<p>{{ user.access }}</p>{% endif %}
-jinja2.exceptions.UndefinedError: 'app.models.User object' has no attribute 'is_admin'
-2021-01-10 19:45:04,338 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+  File "/home/apfrancis/flask/noms-dev/app/models.py", line 36, in is_admin
+    return self.access == access.access_id
+NameError: name 'access' is not defined
+2021-01-10 14:30:53,260 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 14:30:56,223 ERROR: Exception on /user/apfrancis [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 73, in user
+    return render_template('user.html', user=user, posts=posts)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
+    ctx.app,
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
+    rv = template.render(context)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
+    self.environment.handle_exception()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
+    reraise(*rewrite_traceback_stack(source=source))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
+    raise value.with_traceback(tb)
+  File "/home/apfrancis/flask/noms-dev/app/templates/user.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/apfrancis/flask/noms-dev/app/templates/base.html", line 31, in top-level template code
+    {% block content %}
+  File "/home/apfrancis/flask/noms-dev/app/templates/user.html", line 10, in block "content"
+    {% if user.is_admin() %}<p>{{ user.access }}</p>{% endif %}
+  File "/home/apfrancis/flask/noms-dev/app/models.py", line 36, in is_admin
+    return self.access == access.access_id
+NameError: name 'access' is not defined
+2021-01-10 14:32:36,590 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 14:50:11,070 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 14:50:38,944 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 14:50:46,497 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 14:51:07,903 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 14:51:32,073 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 14:54:15,112 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]

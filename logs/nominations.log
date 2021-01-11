@@ -1,4 +1,4 @@
-2021-01-09 10:51:12,354 ERROR: Exception on /register [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+2021-01-10 19:47:46,607 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
 Traceback (most recent call last):
   File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,72 +12,10 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 63, in register
-    return render_template('register.html', title='Register', form=form)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
-    ctx.app,
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
-    rv = template.render(context)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/home/apfrancis/flask/noms-dev/app/templates/register.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/apfrancis/flask/noms-dev/app/templates/base.html", line 31, in top-level template code
-    {% block content %}
-  File "/home/apfrancis/flask/noms-dev/app/templates/register.html", line 22, in block "content"
-    {{ form.password.label }}<br>
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 471, in getattr
-    return getattr(obj, attribute)
-jinja2.exceptions.UndefinedError: 'app.forms.RegistrationForm object' has no attribute 'password'
-2021-01-09 10:53:49,127 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 10:53:55,654 ERROR: Exception on /register [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
-Traceback (most recent call last):
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
-    raise value
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 63, in register
-    return render_template('register.html', title='Register', form=form)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 140, in render_template
-    ctx.app,
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/templating.py", line 120, in _render
-    rv = template.render(context)
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 1090, in render
-    self.environment.handle_exception()
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 832, in handle_exception
-    reraise(*rewrite_traceback_stack(source=source))
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/_compat.py", line 28, in reraise
-    raise value.with_traceback(tb)
-  File "/home/apfrancis/flask/noms-dev/app/templates/register.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/apfrancis/flask/noms-dev/app/templates/base.html", line 31, in top-level template code
-    {% block content %}
-  File "/home/apfrancis/flask/noms-dev/app/templates/register.html", line 22, in block "content"
-    {{ form.password.label }}<br>
-  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/jinja2/environment.py", line 471, in getattr
-    return getattr(obj, attribute)
-jinja2.exceptions.UndefinedError: 'app.forms.RegistrationForm object' has no attribute 'password'
-2021-01-09 10:54:47,186 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:26:17,649 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:30:39,381 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:31:36,845 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:32:14,800 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:32:21,743 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:34:03,730 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:34:19,016 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:38:42,618 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:38:44,925 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:38:49,766 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
-2021-01-09 16:44:47,083 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:44]
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/apfrancis/flask/noms-dev/app/models.py", line 75, in wrap
+    return('index')
+NameError: name 'abort' is not defined
+2021-01-10 19:47:52,080 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 19:48:20,568 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]

@@ -1,0 +1,134 @@
+2021-01-10 17:35:32,466 ERROR: Exception on /login [POST] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1970, in finalize_request
+    response = self.process_response(response)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2269, in process_response
+    self.session_interface.save_session(self, ctx.session, response)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 378, in save_session
+    val = self.get_signing_serializer(app).dumps(dict(session))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/serializer.py", line 166, in dumps
+    payload = want_bytes(self.dump_payload(obj))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/url_safe.py", line 42, in dump_payload
+    json = super(URLSafeSerializerMixin, self).dump_payload(obj)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/serializer.py", line 133, in dump_payload
+    return want_bytes(self.serializer.dumps(obj, **self.serializer_kwargs))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/tag.py", line 305, in dumps
+    return dumps(self.tag(value), separators=(",", ":"))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 211, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "/usr/lib/python3.6/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/usr/lib/python3.6/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/lib/python3.6/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 100, in default
+    return _json.JSONEncoder.default(self, o)
+  File "/usr/lib/python3.6/json/encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'User' is not JSON serializable
+2021-01-10 17:35:32,508 ERROR: Request finalizing failed with an error while handling an error [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1976]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1970, in finalize_request
+    response = self.process_response(response)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2269, in process_response
+    self.session_interface.save_session(self, ctx.session, response)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 378, in save_session
+    val = self.get_signing_serializer(app).dumps(dict(session))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/serializer.py", line 166, in dumps
+    payload = want_bytes(self.dump_payload(obj))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/url_safe.py", line 42, in dump_payload
+    json = super(URLSafeSerializerMixin, self).dump_payload(obj)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/serializer.py", line 133, in dump_payload
+    return want_bytes(self.serializer.dumps(obj, **self.serializer_kwargs))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/tag.py", line 305, in dumps
+    return dumps(self.tag(value), separators=(",", ":"))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 211, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "/usr/lib/python3.6/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/usr/lib/python3.6/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/lib/python3.6/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 100, in default
+    return _json.JSONEncoder.default(self, o)
+  File "/usr/lib/python3.6/json/encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'User' is not JSON serializable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1970, in finalize_request
+    response = self.process_response(response)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2269, in process_response
+    self.session_interface.save_session(self, ctx.session, response)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 378, in save_session
+    val = self.get_signing_serializer(app).dumps(dict(session))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/serializer.py", line 166, in dumps
+    payload = want_bytes(self.dump_payload(obj))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/url_safe.py", line 42, in dump_payload
+    json = super(URLSafeSerializerMixin, self).dump_payload(obj)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/itsdangerous/serializer.py", line 133, in dump_payload
+    return want_bytes(self.serializer.dumps(obj, **self.serializer_kwargs))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/tag.py", line 305, in dumps
+    return dumps(self.tag(value), separators=(",", ":"))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 211, in dumps
+    rv = _json.dumps(obj, **kwargs)
+  File "/usr/lib/python3.6/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/usr/lib/python3.6/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/lib/python3.6/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/json/__init__.py", line 100, in default
+    return _json.JSONEncoder.default(self, o)
+  File "/usr/lib/python3.6/json/encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'User' is not JSON serializable
+2021-01-10 17:37:43,665 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 17:38:39,369 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 17:38:43,548 ERROR: Exception on /login [POST] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 49, in login
+    if user is None or not user.check_password(form.password.data):
+AttributeError: 'function' object has no attribute 'check_password'
+2021-01-10 17:38:52,391 ERROR: Exception on /login [POST] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 49, in login
+    if user is None or not user.check_password(form.password.data):
+AttributeError: 'function' object has no attribute 'check_password'
+2021-01-10 17:39:35,175 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]

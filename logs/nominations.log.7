@@ -1,0 +1,129 @@
+2021-01-10 16:56:01,546 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    user = User.query.filter_by(session['username'])
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
+    __getitem__ = lambda x, i: x._get_current_object()[i]
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: 'username'
+2021-01-10 16:56:56,070 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:56:58,913 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    user = User.query.filter_by(session['user'])
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
+    __getitem__ = lambda x, i: x._get_current_object()[i]
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: 'user'
+2021-01-10 16:57:15,705 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    user = User.query.filter_by(session['user'])
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
+    __getitem__ = lambda x, i: x._get_current_object()[i]
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: 'user'
+2021-01-10 16:58:23,653 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:58:55,344 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:58:58,603 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    user = User.query.filter_by(session['user'])
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
+    __getitem__ = lambda x, i: x._get_current_object()[i]
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: 'user'
+2021-01-10 17:00:44,063 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 17:00:46,653 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    user = User.query.filter_by(session['email'])
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
+    __getitem__ = lambda x, i: x._get_current_object()[i]
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: 'email'
+2021-01-10 17:05:36,017 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 17:09:45,687 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 17:10:20,907 ERROR: Exception on /login [POST] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 49, in login
+    if user is None or not user.check_password(form.password.data):
+AttributeError: 'function' object has no attribute 'check_password'
+2021-01-10 17:11:15,099 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]

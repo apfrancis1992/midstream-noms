@@ -1,10 +1,27 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm
-from app.models import User
+from app.models import User, admin_required
 from datetime import datetime
+
+
+
+
+def requires_access_level(access_level):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+#            user = session.get('username')
+            if not session.get('username'):
+                return redirect(url_for('login'))
+            user = User.find_user_by_username(['username'])   
+            if not user.allowed(access_level):
+                return redirect(url_for('index', message="You do not have access to that page. Sorry!"))
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
 
 
 @app.route('/')
@@ -35,6 +52,7 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        session['username'] = form.username.data
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
@@ -93,19 +111,14 @@ def edit_profile():
         form.username.data = current_user.username
         form.title.data = current_user.title
         form.phone.data = current_user.phone
-    return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
+    return render_template('edit_profile.html', title='Edit Profile', form=form)
 
-@app.route('/admin', methods=['GET', 'POST'])
+@app.route('/admin')
+@login_required
+@admin_required
 def admin():
-    if current_user.admin:
-        return redirect(url_for('index'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('admin.html')
+
+
+##### DECORATORS ######
+

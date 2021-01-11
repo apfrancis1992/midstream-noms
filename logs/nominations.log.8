@@ -1,0 +1,121 @@
+2021-01-10 15:00:43,856 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 16, in decorated_function
+    return redirect(url_for('login'))
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/helpers.py", line 370, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2216, in handle_url_build_error
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/helpers.py", line 358, in url_for
+    endpoint, values, method=method, force_external=external
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/werkzeug/routing.py", line 2179, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'users.login'. Did you mean 'login' instead?
+2021-01-10 15:00:48,640 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 15:01:40,783 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 15:01:53,271 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 15:06:40,830 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 15:08:04,945 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 15:09:07,032 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 15:10:08,344 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 15:59:03,942 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:00:22,005 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:02:15,167 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:20:28,107 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:23:39,714 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:23:46,076 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    if not User.query.filter_by(username=username):
+NameError: name 'username' is not defined
+2021-01-10 16:27:10,776 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:27:21,246 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    if not User.query.filter_by('username'):
+TypeError: filter_by() takes 1 positional argument but 2 were given
+2021-01-10 16:35:44,121 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:42:21,401 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:46:42,428 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:47:10,290 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:47:44,645 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:48:37,275 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:50:43,638 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:50:51,458 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    user = User.find_by_email(session['email'])
+AttributeError: type object 'User' has no attribute 'find_by_email'
+2021-01-10 16:53:17,019 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
+2021-01-10 16:55:29,180 ERROR: Exception on /admin [GET] [in /home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py:1892]
+Traceback (most recent call last):
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/apfrancis/flask/noms-dev/app/routes.py", line 15, in decorated_function
+    user = User.query.filter_by(session['email'])
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/werkzeug/local.py", line 377, in <lambda>
+    __getitem__ = lambda x, i: x._get_current_object()[i]
+  File "/home/apfrancis/flask/noms-dev/venv/lib/python3.6/site-packages/flask/sessions.py", line 84, in __getitem__
+    return super(SecureCookieSession, self).__getitem__(key)
+KeyError: 'email'
+2021-01-10 16:55:58,754 INFO: Nominations Startup [in /home/apfrancis/flask/noms-dev/app/__init__.py:48]
