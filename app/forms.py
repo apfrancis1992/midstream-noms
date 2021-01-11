@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DateField, IntegerField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
 from app.models import User
 import phonenumbers
@@ -64,4 +64,14 @@ class AdminAddUserForm(FlaskForm):
     phone = StringField('Phone', validators=[DataRequired()])
     title = StringField('Title', validators=[DataRequired()])
     admin = BooleanField('Admin User')
+    submit = SubmitField('Submit')
+
+class NomForm(FlaskForm):
+    contract_id = IntegerField('Contract ID', validators=[DataRequired(), Length(min=1, max=8)])
+    day_nom_value = IntegerField('Nom in MMBTU', validators=[DataRequired(), Length(min=1, max=8)])
+    downstream_contract = IntegerField('Contract ID', validators=[DataRequired(), Length(min=6, max=15)])
+    downstream_ba = IntegerField('Downstream BA', validators=[DataRequired(), Length(min=1, max=8)])
+    rank = IntegerField('Contract ID', validators=[DataRequired(), Length(min=1, max=2)])
+    begin_date = DateField('Begin Date', validators=[DataRequired()])
+    end_date = IntegerField('End Date', validators=[DataRequired()])
     submit = SubmitField('Submit')

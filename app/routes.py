@@ -2,26 +2,21 @@ from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
-from app.models import User, admin_required
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm
+from app.models import User
 from datetime import datetime
+from functools import wraps
 
 
 
-
-def requires_access_level(access_level):
-    def decorator(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-#            user = session.get('username')
-            if not session.get('username'):
-                return redirect(url_for('login'))
-            user = User.find_user_by_username(['username'])   
-            if not user.allowed(access_level):
-                return redirect(url_for('index', message="You do not have access to that page. Sorry!"))
+def admin_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if current_user.role == "admin":
             return f(*args, **kwargs)
-        return decorated_function
-    return decorator
+        else:
+            return('Permission Denied')
+    return wrap
 
 
 @app.route('/')
@@ -118,6 +113,29 @@ def edit_profile():
 @admin_required
 def admin():
     return render_template('admin.html')
+
+@app.route('/nominations', methods=['GET', 'POST'])
+@login_required
+def nominate():
+    form = NomForm()
+    if form.validate_on_submit():
+        post = Nom(contract_id=form.contract_id.data, user_id=current_user, day_nom_value=form.day_nom_value.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, rank=form.rank.data, day_nom=form.begin_date.data)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('index'))
+    posts = [
+        {
+            'author': {'username': 'John'},
+            'body': 'Beautiful day in Portland!'
+        },
+        {
+            'author': {'username': 'Susan'},
+            'body': 'The Avengers movie was so cool!'
+        }
+    ]
+    return render_template("nominate.html", title='Nominations', form=form,
+                           posts=posts)
 
 
 ##### DECORATORS ######

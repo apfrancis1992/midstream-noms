@@ -3,8 +3,7 @@ from app import db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from hashlib import md5
-from functools import wraps
-from flask_login import current_user
+
 
 
 class User(UserMixin, db.Model):
@@ -64,13 +63,3 @@ class Nom(db.Model):
 
     def __repr__(self):
         return '<Nom ID: {}>'.format(self.id)
-
-
-def admin_required(f):
-    @wraps(f)
-    def wrap(*args, **kwargs):
-        if current_user.role == "admin":
-            return f(*args, **kwargs)
-        else:
-            return('Permission Denied')
-    return wrap
