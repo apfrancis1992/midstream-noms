@@ -11,7 +11,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
-    email = db.Column(db.String(255, collation='NOCASE'), nullable=False, unique=True)
+    email = db.Column(db.String(255), nullable=False, unique=True)
     company = db.Column(db.String(120), index=True)
     password_hash = db.Column(db.String(128))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
@@ -39,9 +39,9 @@ def load_user(id):
     return User.query.get(int(id))
 
 class Contract(db.Model):
-    contract_id = db.Column(db.String(140), primary_key=True)
-    producer = db.Column(db.String(100), index=True)
-    marketer = db.Column(db.String(100), index=True)
+    contract_id = db.Column(db.Integer, primary_key=True, unique=True)
+    producer = db.Column(db.String(100), db.ForeignKey('company.company_name'), index=True)
+    marketer = db.Column(db.String(100), db.ForeignKey('company.company_name'), index=True)
     contract_type = db.Column(db.String)
     day_due = db.Column(db.Integer)
     active = db.Column(db.Boolean)
@@ -51,15 +51,22 @@ class Contract(db.Model):
 
 class Nom(db.Model):
     nom_id = db.Column(db.Integer, primary_key=True)
-    contract_id = db.Column(db.String(140), db.ForeignKey('contract.contract_id'))
+    contract_id = db.Column(db.Integer, db.ForeignKey('contract.contract_id'))
     day_nom = db.Column(db.DateTime, index=True)
     day_nom_value = db.Column(db.Integer)
     downstream_contract = db.Column(db.Integer)
     downstream_ba = db.Column(db.Integer)
     rank = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    deilvery_id = db.Column(db.Integer)
+    user = db.Column(db.String(64), db.ForeignKey('user.username'))
     edit = db.Column(db.Boolean)
     published_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __repr__(self):
         return '<Nom ID: {}>'.format(self.id)
+
+class Company(db.Model):
+    company_id = db.Column(db.Integer, primary_key=True)
+    company_name = db.Column(db.String(50), unique=True, index=True)
+    company_type = db.Column(db.String(8))
+    status = db.Column(db.Boolean)

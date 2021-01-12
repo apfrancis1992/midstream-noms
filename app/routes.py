@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm
-from app.models import User
+from app.models import User, Nom, Company, Contract
 from datetime import datetime
 from functools import wraps
 
@@ -15,7 +15,7 @@ def admin_required(f):
         if current_user.role == "admin":
             return f(*args, **kwargs)
         else:
-            return('Permission Denied')
+            return redirect('https://www.youtube.com/watch/dQw4w9WgXcQ')
     return wrap
 
 
@@ -112,7 +112,16 @@ def edit_profile():
 @login_required
 @admin_required
 def admin():
-    return render_template('admin.html')
+    company = Contract.query.filter_by(producer=current_user.company).all()
+    if len(company) == 0:
+        company = Contract.query.filter_by(marketer=current_user.company).all()
+
+    for companies in company:
+        contract = companies.contract_id
+    
+
+
+    return render_template('admin.html', title='Admin', noms=noms)
 
 @app.route('/nominations', methods=['GET', 'POST'])
 @login_required
