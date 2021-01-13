@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, DateField, IntegerField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, SelectField
+from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
-from app.models import User
+from app.models import User, Permissions, Contract
 import phonenumbers
+from flask_login import current_user
 
 
 class LoginForm(FlaskForm):
@@ -52,12 +54,6 @@ class EditProfileForm(FlaskForm):
 #        except (phonenumbers.phonenumberutil.NumberParseException, ValueError):
 #            raise ValidationError('Invalid phone number')
 
-class AdminEditUserForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    phone = StringField('Phone', validators=[DataRequired()])
-    title = StringField('Title', validators=[DataRequired()])
-    admin = BooleanField('Admin User')
-    submit = SubmitField('Submit')
 
 class AdminAddUserForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -67,11 +63,26 @@ class AdminAddUserForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class NomForm(FlaskForm):
-    contract_id = IntegerField('Contract ID', validators=[DataRequired(), Length(min=1, max=8)])
-    day_nom_value = IntegerField('Nom in MMBTU', validators=[DataRequired(), Length(min=1, max=8)])
-    downstream_contract = IntegerField('Contract ID', validators=[DataRequired(), Length(min=6, max=15)])
-    downstream_ba = IntegerField('Downstream BA', validators=[DataRequired(), Length(min=1, max=8)])
-    rank = IntegerField('Contract ID', validators=[DataRequired(), Length(min=1, max=2)])
+    contract_id = SelectField('Contract ID', coerce=int)
+    day_nom_value = IntegerField('Nom in MMBTU', validators=[DataRequired()])
+    downstream_contract = IntegerField('Downstream Contract', validators=[DataRequired()])
+    downstream_ba = IntegerField('Downstream BA', validators=[DataRequired()])
+    rank = IntegerField('Rank', validators=[DataRequired()])
     begin_date = DateField('Begin Date', validators=[DataRequired()])
-    end_date = IntegerField('End Date', validators=[DataRequired()])
+    end_date = DateField('End Date', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+    def __init__(self):
+        super(NomForm, self).__init__()
+        self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(producer=current_user.company).all()]
+
+class AdminEditUserForm(FlaskForm):
+    access_types = [('3', 'Admin'), ('1', 'User'), ('2', 'Employee')
+                   ]
+    username = StringField('Username', validators=[DataRequired()])
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    phone = StringField('Phone', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired()])
+    permission = SelectField("Permissions", choices=access_types)
     submit = SubmitField('Submit')

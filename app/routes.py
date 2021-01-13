@@ -2,17 +2,27 @@ from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm
 from app.models import User, Nom, Company, Contract
-from datetime import datetime
+import datetime
 from functools import wraps
+from app.tables import Users
 
 
 
 def admin_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if current_user.role == "admin":
+        if current_user.role == 3:
+            return f(*args, **kwargs)
+        else:
+            return redirect('https://www.youtube.com/watch/dQw4w9WgXcQ')
+    return wrap
+
+def user_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if current_user.role >= 1:
             return f(*args, **kwargs)
         else:
             return redirect('https://www.youtube.com/watch/dQw4w9WgXcQ')
@@ -88,7 +98,7 @@ def user(username):
 @app.before_request
 def before_request():
     if current_user.is_authenticated:
-        current_user.last_seen = datetime.utcnow()
+        current_user.last_seen = datetime.datetime.utcnow()
         db.session.commit()
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -123,29 +133,60 @@ def admin():
 
     return render_template('admin.html', title='Admin', noms=noms)
 
-@app.route('/nominations', methods=['GET', 'POST'])
+@app.route('/nominate', methods=['GET', 'POST'])
 @login_required
+@user_required
 def nominate():
     form = NomForm()
     if form.validate_on_submit():
-        post = Nom(contract_id=form.contract_id.data, user_id=current_user, day_nom_value=form.day_nom_value.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, rank=form.rank.data, day_nom=form.begin_date.data)
-        db.session.add(post)
-        db.session.commit()
+        for day in range((form.end_date.data - form.begin_date.data).days + 1):
+            day_delta = datetime.timedelta(days=1)
+            date = (form.begin_date.data + (day * day_delta))
+            if 
+            post = Nom(contract_id=form.contract_id.data, user=current_user.username, day_nom_value=form.day_nom_value.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, rank=form.rank.data, day_nom=date)
+            db.session.add(post)
+            db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template("nominate.html", title='Nominations', form=form,
-                           posts=posts)
+    return render_template("nominate.html", title='Nominations', form=form)
 
+@app.route('/user_management')
+@login_required
+@admin_required
+def user_management():
+    user = User.query.all()
+    if not user:
+        flash('No results found!')
+        return redirect('/')
+    else:
+        # display results
+        table = Users(user)
+        table.border = True
+    return render_template('user_management.html', title='User Management', table=table)
 
-##### DECORATORS ######
+@app.route('/user/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def user_edit(id):
+    user = User.query.filter_by(id=id).first()
+    form = AdminEditUserForm()
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.first_name = form.first_name.data
+        user.last_name = form.last_name.data
+        user.title = form.title.data
+        user.phone = form.phone.data
+        user.role = form.permission.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('user_management'))
+    elif request.method == 'GET':
+        form.username.data = user.username
+        form.first_name.data = user.first_name
+        form.last_name.data = user.last_name
+        form.title.data = user.title
+        form.phone.data = user.phone
+        form.permission.data = user.role
+    return render_template('edit_user.html', form=form)
+
 

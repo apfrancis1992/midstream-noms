@@ -3,6 +3,7 @@ from app import db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from hashlib import md5
+from sqlalchemy import UniqueContraint
 
 
 
@@ -17,7 +18,7 @@ class User(UserMixin, db.Model):
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
     title = db.Column(db.String(32))
     phone = db.Column(db.String(12))
-    role = db.Column(db.String(20), default='user')
+    role = db.Column(db.Integer, db.ForeignKey('permissions.role_id'), default='1')
 
     def __repr__(self):
         return '<User: {}>'.format(self.username)
@@ -70,3 +71,7 @@ class Company(db.Model):
     company_name = db.Column(db.String(50), unique=True, index=True)
     company_type = db.Column(db.String(8))
     status = db.Column(db.Boolean)
+
+class Permissions(db.Model):
+    role_id = db.Column(db.Integer, primary_key=True)
+    role_name = db.Column(db.String(10))
