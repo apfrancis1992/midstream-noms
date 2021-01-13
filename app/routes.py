@@ -142,10 +142,12 @@ def nominate():
         for day in range((form.end_date.data - form.begin_date.data).days + 1):
             day_delta = datetime.timedelta(days=1)
             date = (form.begin_date.data + (day * day_delta))
-            if 
-            post = Nom(contract_id=form.contract_id.data, user=current_user.username, day_nom_value=form.day_nom_value.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, rank=form.rank.data, day_nom=date)
-            db.session.add(post)
-            db.session.commit()
+            if Nom.query.filter_by(form.contract_id.data, form.downstream_contract.data, form.downstream_ba.data, date, form.rank.data).first is not None:
+                db.session.commit()
+            else:
+                post = Nom(contract_id=form.contract_id.data, user=current_user.username, day_nom_value=form.day_nom_value.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, rank=form.rank.data, day_nom=date)
+                db.session.add(post)
+                db.session.commit()
         flash('Your post is now live!')
         return redirect(url_for('index'))
     return render_template("nominate.html", title='Nominations', form=form)
