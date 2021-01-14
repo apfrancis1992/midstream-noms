@@ -57,10 +57,11 @@ class Nom(db.Model):
     downstream_contract = db.Column(db.Integer)
     downstream_ba = db.Column(db.Integer)
     rank = db.Column(db.Integer)
-    deilvery_id = db.Column(db.Integer)
+    delivery_id = db.Column(db.Integer, db.ForeignKey('delivery.delivery_id'))
     user = db.Column(db.String(64), db.ForeignKey('user.username'))
     edit = db.Column(db.Boolean)
     published_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    confirmed = db.Column(db.Boolean)
 
     def __repr__(self):
         return '<Nom ID: {}>'.format(self.id)
@@ -74,3 +75,7 @@ class Company(db.Model):
 class Permissions(db.Model):
     role_id = db.Column(db.Integer, primary_key=True)
     role_name = db.Column(db.String(10))
+
+class Delivery(db.Model):
+    delivery_id = db.Column(db.Integer, primary_key=True)
+    delivery_name = db.Column(db.String(50))

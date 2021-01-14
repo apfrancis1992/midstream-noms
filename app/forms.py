@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, SelectField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
-from app.models import User, Permissions, Contract
+from app.models import User, Permissions, Contract, Delivery
 import phonenumbers
 from flask_login import current_user
 
@@ -64,6 +64,7 @@ class AdminAddUserForm(FlaskForm):
 
 class NomForm(FlaskForm):
     contract_id = SelectField('Contract ID', coerce=int)
+    delivery_id = SelectField('Delivery Point')
     day_nom_value = IntegerField('Nom in MMBTU', validators=[DataRequired()])
     downstream_contract = IntegerField('Downstream Contract', validators=[DataRequired()])
     downstream_ba = IntegerField('Downstream BA', validators=[DataRequired()])
@@ -75,6 +76,8 @@ class NomForm(FlaskForm):
     def __init__(self):
         super(NomForm, self).__init__()
         self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(producer=current_user.company).all()]
+        self.delivery_id.choices = [(d.delivery_id, d.delivery_name) for d in Delivery.query.all()]
+
 
 class AdminEditUserForm(FlaskForm):
     access_types = [('3', 'Admin'), ('1', 'User'), ('2', 'Employee')

@@ -12,6 +12,13 @@
             {% endfor %}
         </p>
         <p>
+            {{ form.delivery_id.label }}<br>
+            {{ form.delivery_id }}<br>
+            {% for error in form.delivery_id.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
             {{ form.day_nom_value.label }}<br>
             {{ form.day_nom_value(size=32) }}<br>
             {% for error in form.day_nom_value.errors %}
