@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Le
 from app.models import User, Permissions, Contract, Delivery
 import phonenumbers
 from flask_login import current_user
+import datetime
 
 
 class LoginForm(FlaskForm):
@@ -69,14 +70,23 @@ class NomForm(FlaskForm):
     downstream_contract = IntegerField('Downstream Contract', validators=[DataRequired()])
     downstream_ba = IntegerField('Downstream BA', validators=[DataRequired()])
     rank = IntegerField('Rank', validators=[DataRequired()])
-    begin_date = DateField('Begin Date', validators=[DataRequired()])
-    end_date = DateField('End Date', validators=[DataRequired()])
+    begin_date = DateField('Begin Date', format='%Y-%m-%d', validators=[DataRequired()])
+    end_date = DateField('End Date', format='%Y-%m-%d', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
     def __init__(self):
         super(NomForm, self).__init__()
         self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(producer=current_user.company).all()]
         self.delivery_id.choices = [(d.delivery_id, d.delivery_name) for d in Delivery.query.all()]
+
+    def validate_begin_date(form, field):
+        if field.data < datetime.date.today() and current_user.role == 1:
+            raise ValidationError('Start date cannot be in the past.')
+
+    def validate_end_date(form, field):
+        if field.data < form.begin_date.data:
+            raise ValidationError('End date must not be earlier than start date.')
+
 
 
 class AdminEditUserForm(FlaskForm):
