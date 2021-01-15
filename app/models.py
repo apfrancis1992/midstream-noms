@@ -64,7 +64,7 @@ class Nom(db.Model):
     confirmed = db.Column(db.Boolean)
 
     def __repr__(self):
-        return '<Nom ID: {}>'.format(self.id)
+        return '<Nom ID: {}>'.format(self.nom_id)
 
 class Company(db.Model):
     company_id = db.Column(db.Integer, primary_key=True)

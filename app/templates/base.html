@@ -1,40 +1,64 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        {% if title %}
-        <title>{{ title }} - UGC Nominations</title>
-        {% else %}
-        <title>UGC Nominations</title>
-        {% endif %}
-    </head>
-    <body>
-        <div>
-            UGC Nominations:
-            <a href="{{ url_for('index') }}">Home</a>
-            {% if current_user.is_anonymous %}
-            <a href="{{ url_for('login') }}">Login</a>
-            {% else %}
-            <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-                {% if current_user.role == 3 %}
-                <a href="{{ url_for('user_management') }}">Admin</a>
-                {% endif %}
-                {% if current_user.role >= 1 %}
-                <a href="{{ url_for('nominate') }}">Nominate</a>
-                {% endif %}
-            <a href="{{ url_for('logout') }}">Logout</a>
-            {% endif %}
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }} - UGC Nominations{% else %}Welcome Utah Gas Corp{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('index') }}">UGC Nominations</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('index') }}">Explore</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    {% else %}
+                        {% if current_user.role == 3 %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="{{ url_for('user_management') }}">Edit User</a></li>
+                              <li><a href="{{ url_for('add_user') }}">Add User</a></li>
+                              <li><a href="#">Something else here</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">Separated link</a></li>
+                              <li class="divider"></li>
+                              <li><a href="#">One more separated link</a></li>
+                            </ul>
+                          </li>
+                        {% endif %}
+                    <li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-        <hr>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
             {% for message in messages %}
-            <li>{{ message }}</li>
+            <div class="alert alert-info" role="alert">{{ message }}</div>
             {% endfor %}
-        </ul>
         {% endif %}
         {% endwith %}
-        {% block content %}
-        {% endblock %}
-    </body>
-</html>
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}

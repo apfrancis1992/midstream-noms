@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, SelectField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
-from app.models import User, Permissions, Contract, Delivery
+from app.models import User, Permissions, Contract, Delivery, Company
 import phonenumbers
 from flask_login import current_user
 import datetime
@@ -56,12 +56,21 @@ class EditProfileForm(FlaskForm):
 #            raise ValidationError('Invalid phone number')
 
 
-class AdminAddUserForm(FlaskForm):
+class AddUser(FlaskForm):
+    access_types = [('3', 'Admin'), ('1', 'User'), ('2', 'Employee')]
     username = StringField('Username', validators=[DataRequired()])
-    phone = StringField('Phone', validators=[DataRequired()])
+    first_name = StringField('First Name')
+    last_name = StringField('Last Name')
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    company = SelectField('Company')
+    phone = StringField('Phone')
     title = StringField('Title', validators=[DataRequired()])
-    admin = BooleanField('Admin User')
+    role = SelectField('User Role', choices=access_types)
     submit = SubmitField('Submit')
+
+    def __init__(self):
+        super(AddUser, self).__init__()
+        self.company.choices = [(e.company_name, e.company_name) for e in Company.query.all()]
 
 class NomForm(FlaskForm):
     contract_id = SelectField('Contract ID', coerce=int)
@@ -76,7 +85,13 @@ class NomForm(FlaskForm):
 
     def __init__(self):
         super(NomForm, self).__init__()
-        self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(producer=current_user.company).all()]
+        if current_user.role >= 2:
+            self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.all()]
+        elif Contract.query.filter_by(producer=current_user.company).first() is not None:
+            self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(producer=current_user.company).all()]
+        elif Contract.query.filter_by(marketer=current_user.company).first() is not None:
+            self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(marketer=current_user.company).all()]
+
         self.delivery_id.choices = [(d.delivery_id, d.delivery_name) for d in Delivery.query.all()]
 
     def validate_begin_date(form, field):

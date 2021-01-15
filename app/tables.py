@@ -22,3 +22,9 @@ class Users(Table):
     phone = Col("Phone")
     role = Col("Permissions")
     edit = LinkCol('Edit', 'user_edit', url_kwargs=dict(id='id'))
+
+class Noms(Table):
+    nom_id = Col("ID", show=False)
+    contract_id = Col("Contract ID")
+    day_nom = Col("Date")
+    day_nom_value = Col("MMBTU")

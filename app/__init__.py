@@ -6,6 +6,7 @@ from config import Config
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
+from flask_bootstrap import Bootstrap
 
 
 app = Flask(__name__)
@@ -14,6 +15,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
+
 
 
 from app import routes, models, errors
@@ -46,3 +48,4 @@ if not app.debug:
     app.logger.setLevel(logging.INFO)
     app.logger.info('Nominations Startup')
 
+bootstrap = Bootstrap(app)
