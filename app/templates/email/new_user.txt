@@ -1,0 +1,11 @@
+Dear {{ user.first_name }},
+
+Please use the following link to register you account on the Utah Gas Corp Nominations system:
+
+{{ url_for('reset_password', token=token, _external=True) }}
+
+If you do not need a login you can ignore this email.
+
+Sincerely,
+
+Utah Gas Corp

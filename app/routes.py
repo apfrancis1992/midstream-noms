@@ -9,7 +9,7 @@ from functools import wraps
 from app.tables import Users, Noms
 import pandas
 from pandas import DataFrame
-from app.email import send_password_reset_email
+from app.email import send_password_reset_email, send_password_login_email
 
 
 
@@ -269,8 +269,9 @@ def add_user():
         user = User(username=form.username.data, email=form.email.data, company=form.company.data, title=form.title.data, role=form.role.data, phone=form.phone.data, first_name=form.first_name.data, last_name=form.last_name.data)
         db.session.add(user)
         db.session.commit()
+        send_password_login_email(user)
         flash('New user has been registered!')
-        return redirect(url_for('user_edit'))
+        return redirect(url_for('user_management'))
     return render_template('add_user.html', title='Add User', form=form)
 
 
