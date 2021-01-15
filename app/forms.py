@@ -110,10 +110,15 @@ class AdminEditUserForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
+    company = SelectField('Company')
     phone = StringField('Phone', validators=[DataRequired()])
     title = StringField('Title', validators=[DataRequired()])
     permission = SelectField("Permissions", choices=access_types)
     submit = SubmitField('Submit')
+
+    def __init__(self):
+        super(AdminEditUserForm, self).__init__()
+        self.company.choices = [(c.company_name, c.company_name) for c in Company.query.all()]
 
 class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

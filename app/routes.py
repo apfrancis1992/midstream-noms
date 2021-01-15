@@ -242,6 +242,7 @@ def user_edit(id):
         user.username = form.username.data
         user.first_name = form.first_name.data
         user.last_name = form.last_name.data
+        user.company = form.company.data
         user.title = form.title.data
         user.phone = form.phone.data
         user.role = form.permission.data
@@ -252,6 +253,7 @@ def user_edit(id):
         form.username.data = user.username
         form.first_name.data = user.first_name
         form.last_name.data = user.last_name
+        form.company.data = user.company
         form.title.data = user.title
         form.phone.data = user.phone
         form.permission.data = user.role
