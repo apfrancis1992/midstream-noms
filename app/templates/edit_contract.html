@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Edit Contract</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.contract_id.label }}<br>
+            {{ form.contract_id(size=10) }}<br>
+            {% for error in form.contract_id.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.producer.label }}<br>
+            {{ form.producer }}<br>
+            {% for error in form.producer.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.marketer.label }}<br>
+            {{ form.marketer }}<br>
+            {% for error in form.marketer.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.contract_type.label }}<br>
+            {{ form.contract_type(size=32) }}<br>
+            {% for error in form.contract_type.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.day_due.label }}<br>
+            {{ form.day_due(size=10) }}<br>
+            {% for error in form.day_due.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.active.label }}<br>
+            {{ form.active }}<br>
+            {% for error in form.active.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

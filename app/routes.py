@@ -2,11 +2,11 @@ from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm, EditContractForm
 from app.models import User, Company, Contract, Nom
 import datetime
 from functools import wraps
-from app.tables import Users, Noms, Companies
+from app.tables import Users, Noms, Companies, Contracts
 import pandas
 from pandas import DataFrame
 from app.email import send_password_reset_email, send_password_login_email
@@ -338,3 +338,42 @@ def company_management():
         table = Companies(company)
         table.border = True
     return render_template('company_management.html', title='Company Management', table=table)
+
+@app.route('/admin/contract_management')
+@login_required
+@admin_required
+def contract_management():
+    contract = Contract.query.order_by(Contract.contract_id).all()
+    if not contract:
+        flash('No results found!')
+        return redirect('/')
+    else:
+        # display results
+        table = Contracts(contract)
+        table.border = True
+    return render_template('contract_management.html', title='Contract Management', table=table)
+
+@app.route('/contract/<int:contract_id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_contract(contract_id):
+    contract = Contract.query.filter_by(contract_id=contract_id).first()
+    form = EditContractForm()
+    if form.validate_on_submit():
+        contract.contract_id = form.contract_id.data
+        contract.producer = form.producer.data
+        contract.marketer = form.marketer.data
+        contract.contract_type = form.contract_type.data
+        contract.day_due = form.day_due.data
+        contract.active = form.active.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('contract_management'))
+    elif request.method == 'GET':
+        form.contract_id.data = contract.contract_id
+        form.producer.data = contract.producer
+        form.marketer.data = contract.marketer
+        form.contract_type.data = contract.contract_type
+        form.day_due.data = contract.day_due
+        form.active.data = contract.active
+    return render_template('edit_contract.html', form=form)

@@ -57,7 +57,7 @@ def load_user(id):
 class Contract(db.Model):
     contract_id = db.Column(db.Integer, primary_key=True, unique=True)
     producer = db.Column(db.String(100), db.ForeignKey('company.company_name'), index=True)
-    marketer = db.Column(db.String(100), db.ForeignKey('company.company_name'), index=True)
+    marketer = db.Column(db.String(100), index=True)
     contract_type = db.Column(db.String)
     day_due = db.Column(db.Integer)
     active = db.Column(db.Boolean)

@@ -137,3 +137,18 @@ class EditCompanyForm(FlaskForm):
     company_type = SelectField('Company Type', choices=company)
     status = BooleanField('Active')
     submit = SubmitField('Submit')
+
+
+class EditContractForm(FlaskForm):
+    contract_id = IntegerField('Contract Number', validators=[DataRequired()])
+    producer = SelectField('Producer')
+    marketer = SelectField('Marketer')
+    contract_type = StringField('Contract Type', validators=[DataRequired()])
+    day_due = IntegerField('Day Due', validators=[DataRequired()])
+    active = BooleanField('Active')
+    submit = SubmitField('Submit')
+
+    def __init__(self):
+        super(EditContractForm, self).__init__()
+        self.producer.choices = [(c.company_name, c.company_name) for c in Company.query.filter_by(company_type='producer').order_by(Company.company_name).all()]
+        self.marketer.choices = [('', "---")] + [(c.company_name, c.company_name) for c in Company.query.filter_by(company_type='marketer').order_by(Company.company_name).all()]

@@ -35,3 +35,12 @@ class Companies(Table):
     company_type = Col("Company Type")
     status = Col("Active")
     edit = LinkCol('Edit', 'edit_company', url_kwargs=dict(company_id='company_id'))
+
+class Contracts(Table):
+    contract_id = Col("ID")
+    producer = Col("Producer")
+    marketer = Col("Marketer")
+    contract_type = Col('Contract Type')
+    day_due = Col('Day Due')
+    active = Col("Active")
+    edit = LinkCol('Edit', 'edit_contract', url_kwargs=dict(contract_id='contract_id'))
