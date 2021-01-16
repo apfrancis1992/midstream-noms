@@ -105,7 +105,7 @@ class NomForm(FlaskForm):
 
 
 class AdminEditUserForm(FlaskForm):
-    access_types = [('3', 'Admin'), ('1', 'User'), ('2', 'Employee')
+    access_types = [('1', 'User'), ('2', 'Employee'), ('3', 'Admin')
                    ]
     username = StringField('Username', validators=[DataRequired()])
     first_name = StringField('First Name', validators=[DataRequired()])
@@ -129,3 +129,11 @@ class ResetPasswordForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')
+
+class EditCompanyForm(FlaskForm):
+    company = [('producer', 'Producer'), ('marketer', 'Marketer')
+                   ]
+    company_name = StringField('Company Name', validators=[DataRequired()])
+    company_type = SelectField('Company Type', choices=company)
+    status = BooleanField('Active')
+    submit = SubmitField('Submit')

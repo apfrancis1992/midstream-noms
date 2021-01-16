@@ -2,11 +2,11 @@ from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm
 from app.models import User, Company, Contract, Nom
 import datetime
 from functools import wraps
-from app.tables import Users, Noms
+from app.tables import Users, Noms, Companies
 import pandas
 from pandas import DataFrame
 from app.email import send_password_reset_email, send_password_login_email
@@ -33,7 +33,7 @@ def user_required(f):
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
     form = NomForm()
@@ -302,3 +302,39 @@ def reset_password(token):
         flash('Your password has been reset.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
+
+
+
+@app.route('/company/<int:company_id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_company(company_id):
+    company = Company.query.filter_by(company_id=company_id).first()
+    form = EditCompanyForm()
+    if form.validate_on_submit():
+        company.company_name = form.company_name.data
+        company.company_type = form.company_type.data
+        company.status = form.status.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('company_management'))
+    elif request.method == 'GET':
+        form.company_name.data = company.company_name
+        form.company_type.data = company.company_type
+        form.status.data = company.status
+    return render_template('edit_company.html', form=form)
+
+
+@app.route('/admin/company_management')
+@login_required
+@admin_required
+def company_management():
+    company = Company.query.order_by(Company.company_name).all()
+    if not company:
+        flash('No results found!')
+        return redirect('/')
+    else:
+        # display results
+        table = Companies(company)
+        table.border = True
+    return render_template('company_management.html', title='Company Management', table=table)

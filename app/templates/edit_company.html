@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Edit Company</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.company_name.label }}<br>
+            {{ form.company_name(size=32) }}<br>
+            {% for error in form.company_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.company_type.label }}<br>
+            {{ form.company_type }}<br>
+            {% for error in form.company_type.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.status.label }}<br>
+            {{ form.status }}<br>
+            {% for error in form.status.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

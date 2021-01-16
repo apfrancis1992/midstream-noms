@@ -28,3 +28,10 @@ class Noms(Table):
     contract_id = Col("Contract ID")
     day_nom = Col("Date")
     day_nom_value = Col("MMBTU")
+
+class Companies(Table):
+    company_id = Col("ID", show=False)
+    company_name = Col("Company Name")
+    company_type = Col("Company Type")
+    status = Col("Active")
+    edit = LinkCol('Edit', 'edit_company', url_kwargs=dict(company_id='company_id'))
