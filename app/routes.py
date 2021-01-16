@@ -149,9 +149,8 @@ def admin():
 
     return render_template('admin.html', title='Admin', noms=noms)
 
-@app.route('/admin/dashboard')
+@app.route('/dashboard')
 @login_required
-@admin_required
 def admin_dashboard():
     form = NomForm()
     if current_user.role >= 2:
@@ -166,7 +165,7 @@ def admin_dashboard():
         contracts.append(i.contract_id)
 
     noms = Nom.query.filter(Nom.contract_id.in_(contracts)).statement
-
+    data = Nom.query.filter(Nom.contract_id.in_(contracts)).all()
     df = pandas.read_sql(noms, db.engine)
     df['day_nom'] = df['day_nom'].dt.strftime('%m/%d/%Y')
 
@@ -187,7 +186,7 @@ def admin_dashboard():
         # display results
         table = Noms(df)
         table.border = True
-    return render_template('admin_dashboard.html', title='Admin Dashboard', table=df)
+    return render_template('dashboard.html', title='Dashboard', table=df)
 
 @app.route('/nominate', methods=['GET', 'POST'])
 @login_required
