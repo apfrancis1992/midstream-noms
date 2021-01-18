@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm, EditContractForm
-from app.models import User, Company, Contract, Nom
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm, EditContractForm, AddUpdateForm
+from app.models import User, Company, Contract, Nom, Updates
 import datetime
 from functools import wraps
 from app.tables import Users, Noms, Companies, Contracts
@@ -36,30 +36,9 @@ def user_required(f):
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    form = NomForm()
-    if form.validate_on_submit():
-        for day in range((form.end_date.data - form.begin_date.data).days + 1):
-            day_delta = datetime.timedelta(days=1)
-            date = (form.begin_date.data + (day * day_delta))
-            old_nom = Nom.query.filter_by(contract_id=form.contract_id.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, day_nom=date, rank=form.rank.data).first()
-            if old_nom is not None:
-                old_nom.contract_id = form.contract_id.data
-                old_nom.day_nom_value = form.day_nom_value.data
-                old_nom.downstream_contract = form.downstream_contract.data
-                old_nom.downstream_ba = form.downstream_ba.data
-                old_nom.day_nom = date
-                old_nom.rank = form.rank.data
-                old_nom.delivery_id = form.delivery_id.data
-                old_nom.edit = True
-                old_nom.published_time = datetime.datetime.utcnow()
-                db.session.commit()
-            else:
-                post = Nom(contract_id=form.contract_id.data, user=current_user.username, day_nom_value=form.day_nom_value.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, rank=form.rank.data, day_nom=date, delivery_id=form.delivery_id.data)
-                db.session.add(post)
-                db.session.commit()
-        flash('Your post is now live!')
-        return redirect(url_for('index'))
-    return render_template("index.html", title='Nominations', form=form)
+    updates = Updates.query.order_by(Updates.timestamp.desc()).all()
+    
+    return render_template("news.html", title='Home', updates=updates)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -377,3 +356,17 @@ def edit_contract(contract_id):
         form.day_due.data = contract.day_due
         form.active.data = contract.active
     return render_template('edit_contract.html', form=form)
+
+
+@app.route('/admin/update', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def update():
+    form = AddUpdateForm()
+    if form.validate_on_submit():
+        update = Updates(update=form.update.data, user_id=current_user.id, update_title=form.update_title.data)
+        db.session.add(update)
+        db.session.commit()
+        flash('Your update is now live!')
+        return redirect(url_for('index'))
+    return render_template("update.html", title='Post Update', form=form)

@@ -21,6 +21,7 @@ class User(UserMixin, db.Model):
     title = db.Column(db.String(32))
     phone = db.Column(db.String(12))
     role = db.Column(db.Integer, db.ForeignKey('permissions.role_id'), default='1')
+    updates = db.relationship('Updates', backref='author', lazy='dynamic')
 
     def __repr__(self):
         return '<User: {}>'.format(self.username)
@@ -95,3 +96,10 @@ class Permissions(db.Model):
 class Delivery(db.Model):
     delivery_id = db.Column(db.Integer, primary_key=True)
     delivery_name = db.Column(db.String(50))
+
+class Updates(db.Model):
+    update_id = db.Column(db.Integer, primary_key=True)
+    update_title = db.Column(db.String(50))
+    update = db.Column(db.String(1000))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

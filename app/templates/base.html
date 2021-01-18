@@ -19,6 +19,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('nominate') }}">Nominate</a></li>
                     <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -34,7 +35,7 @@
                               <li><a href="{{ url_for('company_management') }}">Edit Company</a></li>
                               <li class="divider"></li>
                               <li><a href="{{ url_for('contract_management') }}">Edit Contracts</a></li>
-                              <li><a href="{{ url_for('add_user') }}">Add Contract</a></li>
+                              <li><a href="{{ url_for('update') }}">Post Update</a></li>
                             </ul>
                           </li>
                         {% endif %}

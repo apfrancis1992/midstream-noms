@@ -152,3 +152,8 @@ class EditContractForm(FlaskForm):
         super(EditContractForm, self).__init__()
         self.producer.choices = [(c.company_name, c.company_name) for c in Company.query.filter_by(company_type='producer').order_by(Company.company_name).all()]
         self.marketer.choices = [('', "---")] + [(c.company_name, c.company_name) for c in Company.query.filter_by(company_type='marketer').order_by(Company.company_name).all()]
+
+class AddUpdateForm(FlaskForm):
+    update_title = StringField('Title', validators=[DataRequired(), Length(min=1, max=50)])
+    update = TextAreaField('Update', validators=[DataRequired(), Length(min=1, max=500)])
+    submit = SubmitField('Submit')
