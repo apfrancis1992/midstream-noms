@@ -39,7 +39,7 @@ nosetests.xml
 venv
 app.db
 microblog.log*
-config.py
 logs
 .flaskenv
 migrations
+.env
