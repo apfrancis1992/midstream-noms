@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Add User</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.contract_id.label }}<br>
+            {{ form.contract_id }}<br>
+            {% for error in form.contract_id.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.begin_date.label }}<br>
+            {{ form.begin_date }}<br>
+            {% for error in form.begin_date.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.end_date.label }}<br>
+            {{ form.end_date }}<br>
+            {% for error in form.end_date.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

@@ -1,8 +1,8 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, SelectField
+from flask_wtf import FlaskForm, Form
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, IntegerField, SelectField, FieldList, FormField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Length
-from app.models import User, Permissions, Contract, Delivery, Company
+from app.models import User, Permissions, Contract, Delivery, Company, Nom
 import phonenumbers
 from flask_login import current_user
 import datetime
@@ -151,9 +151,19 @@ class EditContractForm(FlaskForm):
     def __init__(self):
         super(EditContractForm, self).__init__()
         self.producer.choices = [(c.company_name, c.company_name) for c in Company.query.filter_by(company_type='producer').order_by(Company.company_name).all()]
-        self.marketer.choices = [('', "---")] + [(c.company_name, c.company_name) for c in Company.query.filter_by(company_type='marketer').order_by(Company.company_name).all()]
+        self.marketer.choices = [('', "---")] + [(c.company_name, c.company_name) for c in Company.query.filter_by(company_type='marketer').order_by(Company.company_name).distinct().all()]
 
 class AddUpdateForm(FlaskForm):
     update_title = StringField('Title', validators=[DataRequired(), Length(min=1, max=50)])
     update = TextAreaField('Update', validators=[DataRequired(), Length(min=1, max=500)])
     submit = SubmitField('Submit')
+
+class ConfirmSearchForm(FlaskForm):
+    contract_id = SelectField('Contract ID', coerce=int)
+    begin_date = DateField('Begin Date', format='%Y-%m-%d', validators=[DataRequired()])
+    end_date = DateField('End Date', format='%Y-%m-%d', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+    def __init__(self):
+        super(ConfirmSearchForm, self).__init__()
+        self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Nom.query.order_by(Nom.contract_id).distinct(Nom.contract_id)]

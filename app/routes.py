@@ -1,8 +1,8 @@
-from flask import render_template, flash, redirect, url_for, request, session
+from flask import render_template, flash, redirect, url_for, request, session, json, jsonify
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm, EditContractForm, AddUpdateForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm, EditContractForm, AddUpdateForm, ConfirmSearchForm
 from app.models import User, Company, Contract, Nom, Updates
 import datetime
 from functools import wraps
@@ -109,20 +109,20 @@ def edit_profile():
         form.phone.data = current_user.phone
     return render_template('edit_profile.html', title='Edit Profile', form=form)
 
-@app.route('/admin')
-@login_required
-@admin_required
-def admin():
-    company = Contract.query.filter_by(producer=current_user.company).all()
-    if len(company) == 0:
-        company = Contract.query.filter_by(marketer=current_user.company).all()
-
-    for companies in company:
-        contract = companies.contract_id
+#@app.route('/admin')
+#@login_required
+#@admin_required
+#def admin():
+#    company = Contract.query.filter_by(producer=current_user.company).all()
+#    if len(company) == 0:
+#        company = Contract.query.filter_by(marketer=current_user.company).all()#
+#
+#    for companies in company:
+#        contract = companies.contract_id
     
 
 
-    return render_template('admin.html', title='Admin', noms=noms)
+#    return render_template('admin.html', title='Admin')
 
 @app.route('/dashboard')
 @login_required
@@ -172,7 +172,7 @@ def nominate():
         for day in range((form.end_date.data - form.begin_date.data).days + 1):
             day_delta = datetime.timedelta(days=1)
             date = (form.begin_date.data + (day * day_delta))
-            old_nom = Nom.query.filter_by(contract_id=form.contract_id.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, day_nom=date, rank=form.rank.data).first()
+            old_nom = Nom.query.filter_by(contract_id=form.contract_id.data, downstream_contract=form.downstream_contract.data, downstream_ba=form.downstream_ba.data, day_nom=date).first()
             if old_nom is not None:
                 old_nom.contract_id = form.contract_id.data
                 old_nom.day_nom_value = form.day_nom_value.data
@@ -182,6 +182,7 @@ def nominate():
                 old_nom.rank = form.rank.data
                 old_nom.delivery_id = form.delivery_id.data
                 old_nom.edit = True
+                old_nom.confirmed = False
                 old_nom.published_time = datetime.datetime.utcnow()
                 db.session.commit()
             else:
@@ -366,3 +367,55 @@ def update():
         flash('Your update is now live!')
         return redirect(url_for('index'))
     return render_template("update.html", title='Post Update', form=form)
+
+
+@app.route('/admin/confirm', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def confirm():
+    form = ConfirmSearchForm()
+    if form.validate_on_submit():
+        contract_id = form.contract_id.data
+        begin_date = form.begin_date.data
+        end_date = form.end_date.data
+        return search_results(contract_id, begin_date, end_date)
+    return render_template("confirm_form.html", title='Confirm Nominations', form=form)
+
+#@app.route('/admin/nominations', methods=['GET', 'POST'])
+#def search_results(contract_id, begin_date, end_date):
+#    results = Nom.query.filter(Nom.contract_id == contract_id, Nom.day_nom >= begin_date, Nom.day_nom <= end_date).all()
+#    if not len(results) == 0:
+#        form =  ConfirmForm()
+#        form.title.data = "Confirm"
+#        students = [dict(zip(["day_nom","contract_id"], results)) for nom in results]
+#        for nom in students:
+#            confirm_form = ConfirmNomForm()
+#            confirm_form.day_nom = nom.day_nom
+#            confirm_form.contract_id = nom.contract_id
+#            confirm_form.delivery_id = nom.delivery_id
+#            confirm_form.day_nom_value = nom.day_nom_value
+#            confirm_form.downstream_contract = nom.downstream_contract
+#            confirm_form.downstream_ba = nom.downstream_ba
+#            confirm_form.rank = nom.rank
+#            confirm_form.confirmed = nom.confirmed
+#            form.confirm.append_entry(confirm_form)
+#    return render_template('results.html', form=form)
+
+@app.route('/admin/nominations', methods=['GET', 'POST'])
+def search_results(contract_id, begin_date, end_date):
+    results = Nom.query.filter(Nom.contract_id == contract_id, Nom.day_nom >= begin_date, Nom.day_nom <= end_date).all()
+    return render_template('results.html', results=results)
+
+@app.route('/update_nomination', methods=['POST'])
+def update_nomination():
+    pk = request.form['pk']
+    value = request.form['value']
+    confirm_nom = Nom.query.filter_by(nom_id=pk).first()
+    if not confirm_nom:
+        return json.dumps({'error':'data not found'})
+    else:
+        print(value, current_user.username)
+        confirm_nom.confirmed = value
+        confirm_nom.confirmed_by = current_user.username
+        db.session.commit()
+    return json.dumps({'status':'OK'})

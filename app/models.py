@@ -78,7 +78,8 @@ class Nom(db.Model):
     user = db.Column(db.String(64), db.ForeignKey('user.username'))
     edit = db.Column(db.Boolean)
     published_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    confirmed = db.Column(db.Boolean)
+    confirmed = db.Column(db.Integer)
+    confirmed_by = db.Column(db.String(64))
 
     def __repr__(self):
         return '<Nom ID: {}>'.format(self.nom_id)
