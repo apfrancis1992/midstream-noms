@@ -77,7 +77,7 @@ function del(ID, title){
                                 <tr>
                                     <td data-pk="{{row.nom_id}}">{{row.nom_id}}</td>
                                     <td data-name="contract_id" class="name" data-type="text" data-pk="{{row.nom_id}}">{{row.contract_id}}</td>
-                                    <td data-date="day_nom" class="date" data-type="date" data-pk="{{row.nom_id}}">{{moment(row.day_nom).format('L')}}</td>
+                                    <td data-date="day_nom" class="date" data-type="date" data-pk="{{row.nom_id}}">{{row.day_nom.strftime('%Y-%m-%d')}}</td>
                                     <td data-name="downstream_contract" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.downstream_contract}}</td>
                                     <td data-name="downstream_ba" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.downstream_ba}}</td>
                                     <td data-name="rank" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.rank}}</td>

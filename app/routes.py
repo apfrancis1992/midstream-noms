@@ -401,11 +401,17 @@ def confirm():
 #            form.confirm.append_entry(confirm_form)
 #    return render_template('results.html', form=form)
 
+
+@login_required
+@admin_required
 @app.route('/admin/nominations', methods=['GET', 'POST'])
 def search_results(contract_id, begin_date, end_date):
     results = Nom.query.filter(Nom.contract_id == contract_id, Nom.day_nom >= begin_date, Nom.day_nom <= end_date).all()
     return render_template('results.html', results=results, title='Confirm')
 
+
+@login_required
+@admin_required
 @app.route('/update_nomination', methods=['POST'])
 def update_nomination():
     pk = request.form['pk']
@@ -414,7 +420,6 @@ def update_nomination():
     if not confirm_nom:
         return json.dumps({'error':'data not found'})
     else:
-        print(value, current_user.username)
         confirm_nom.confirmed = value
         confirm_nom.confirmed_by = current_user.username
         db.session.commit()
