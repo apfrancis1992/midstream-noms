@@ -404,7 +404,7 @@ def confirm():
 @app.route('/admin/nominations', methods=['GET', 'POST'])
 def search_results(contract_id, begin_date, end_date):
     results = Nom.query.filter(Nom.contract_id == contract_id, Nom.day_nom >= begin_date, Nom.day_nom <= end_date).all()
-    return render_template('results.html', results=results)
+    return render_template('results.html', results=results, title='Confirm')
 
 @app.route('/update_nomination', methods=['POST'])
 def update_nomination():

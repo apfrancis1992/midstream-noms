@@ -8,6 +8,7 @@ from logging.handlers import SMTPHandler, RotatingFileHandler
 import os
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail
+from flask_moment import Moment
 
 
 app = Flask(__name__)
@@ -51,3 +52,4 @@ if not app.debug:
     app.logger.info('Nominations Startup')
 
 bootstrap = Bootstrap(app)
+moment = Moment(app)
