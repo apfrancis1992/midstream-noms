@@ -1,6 +1,111 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <h1>Nominations</h1>
-        {{ table | safe }}
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>  
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+
+
+<script type="text/javascript" language="javascript">
+$(document).ready(function(){
+    var dataTable = $('#sample_data').DataTable();
+
+});
+
+function del(ID, title){
+    if (confirm("Are you sure you want to delete '" + title + "'")){
+        window.location.href = '/delete/' + ID;
+    }
+}
+
+</script>
+</head>
+
+    <body>
+        <div class="container">
+            <h3>Confirmations</h3>
+            <br />
+            <div class="panel panel-default">
+            </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="sample_data" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Contract ID</th>
+                                    <th>Day</th>
+                                    <th>Downstream Contract</th>
+                                    <th>Downstream BA</th>
+                                    <th>Rank</th>
+                                    <th>Delivery Point</th>
+                                    <th>Nom Value</th>
+                                    <th>Confirmed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in results %}
+                                <tr>
+                                    <td data-pk="{{row.nom_id}}">{{row.nom_id}}</td>
+                                    <td data-name="contract_id" class="name" data-type="text" data-pk="{{row.nom_id}}">{{row.contract_id}}</td>
+                                    <td data-date="day_nom" class="date" data-type="date" data-pk="{{row.nom_id}}">{{row.day_nom.strftime('%Y-%m-%d')}}</td>
+                                    <td data-name="downstream_contract" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.downstream_contract}}</td>
+                                    <td data-name="downstream_ba" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.downstream_ba}}</td>
+                                    <td data-name="rank" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.rank}}</td>
+                                    <td data-name="delivery_id" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.delivery_id}}</td>
+                                    <td data-name="day_nom_value" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.day_nom_value}}</td>
+                                    <td data-confirmed="confirmed" class="confirmed" data-type="number" data-pk="{{row.nom_id}}">{{row.confirmed}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+             
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" method="post" action="/add">
+          <div class="form-group">
+            <label class="col-form-label">Name:</label>
+            <input type="text" class="form-control" id="txtname" name="txtname">
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="txtemail" name="txtemail">
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Phone:</label>
+            <input type="text" class="form-control" id="txtphone" name="txtphone">
+          </div>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input name="cmdsubmit" class="btn btn-primary" type="submit" value="Submit" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+        <br />
+        <br />
+    </body>
+</html>
 {% endblock %}

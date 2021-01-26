@@ -83,6 +83,14 @@ class NomForm(FlaskForm):
     end_date = DateField('End Date', format='%Y-%m-%d', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+    def validate_begin_date(form, field):
+        if field.data < datetime.date.today() and current_user.role == 1:
+            raise ValidationError('Start date cannot be in the past.')
+
+    def validate_end_date(form, field):
+        if field.data < form.begin_date.data:
+            raise ValidationError('End date must not be earlier than start date.')
+
     def __init__(self):
         super(NomForm, self).__init__()
         if current_user.role >= 2:
@@ -93,14 +101,6 @@ class NomForm(FlaskForm):
             self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(marketer=current_user.company).all()]
 
         self.delivery_id.choices = [(d.delivery_id, d.delivery_name) for d in Delivery.query.all()]
-
-    def validate_begin_date(form, field):
-        if field.data < datetime.date.today() and current_user.role == 1:
-            raise ValidationError('Start date cannot be in the past.')
-
-    def validate_end_date(form, field):
-        if field.data < form.begin_date.data:
-            raise ValidationError('End date must not be earlier than start date.')
 
 
 
@@ -167,3 +167,19 @@ class ConfirmSearchForm(FlaskForm):
     def __init__(self):
         super(ConfirmSearchForm, self).__init__()
         self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Nom.query.order_by(Nom.contract_id).distinct(Nom.contract_id)]
+
+
+class DashboardSearchForm(FlaskForm):
+    contract_id = SelectField('Contract ID', coerce=int)
+    begin_date = DateField('Begin Date', format='%Y-%m-%d', validators=[DataRequired()])
+    end_date = DateField('End Date', format='%Y-%m-%d', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+    def __init__(self):
+        super(DashboardSearchForm, self).__init__()
+        if current_user.role >= 2:
+            self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.order_by(Contract.contract_id).all()]
+        elif Contract.query.filter_by(producer=current_user.company).first() is not None:
+            self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(producer=current_user.company).order_by(Contract.contract_id).all()]
+        elif Contract.query.filter_by(marketer=current_user.company).first() is not None:
+            self.contract_id.choices = [(c.contract_id, c.contract_id) for c in Contract.query.filter_by(marketer=current_user.company).order_by(Contract.contract_id).all()]

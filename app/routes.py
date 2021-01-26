@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, session, j
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm, EditContractForm, AddUpdateForm, ConfirmSearchForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, NomForm, AdminEditUserForm, AddUser, ResetPasswordRequestForm, ResetPasswordForm, EditCompanyForm, EditContractForm, AddUpdateForm, ConfirmSearchForm, DashboardSearchForm
 from app.models import User, Company, Contract, Nom, Updates
 import datetime
 from functools import wraps
@@ -124,44 +124,44 @@ def edit_profile():
 
 #    return render_template('admin.html', title='Admin')
 
-@app.route('/dashboard')
-@login_required
-def admin_dashboard():
-    form = NomForm()
-    if current_user.role >= 2:
-        contract = Contract.query.all()
-    elif Contract.query.filter_by(producer=current_user.company).first() is not None:
-        contract = Contract.query.filter_by(producer=current_user.company).all()
-    elif Contract.query.filter_by(marketer=current_user.company).first() is not None:
-        contract = Contract.query.filter_by(marketer=current_user.company).all()
-    contracts = []
+#@app.route('/dashboard')
+#@login_required
+#def admin_dashboard():
+#    form = NomForm()
+#    if current_user.role >= 2:
+#        contract = Contract.query.all()
+#    elif Contract.query.filter_by(producer=current_user.company).first() is not None:
+#        contract = Contract.query.filter_by(producer=current_user.company).all()
+#    elif Contract.query.filter_by(marketer=current_user.company).first() is not None:
+#        contract = Contract.query.filter_by(marketer=current_user.company).all()
+#    contracts = []
 
-    for i in contract:
-        contracts.append(i.contract_id)
+#    for i in contract:
+#        contracts.append(i.contract_id)
 
-    noms = Nom.query.filter(Nom.contract_id.in_(contracts)).statement
-    data = Nom.query.filter(Nom.contract_id.in_(contracts)).all()
-    df = pandas.read_sql(noms, db.engine)
-    df['day_nom'] = df['day_nom'].dt.strftime('%m/%d/%Y')
+#    noms = Nom.query.filter(Nom.contract_id.in_(contracts)).statement
+#    data = Nom.query.filter(Nom.contract_id.in_(contracts)).all()
+#    df = pandas.read_sql(noms, db.engine)
+#    df['day_nom'] = df['day_nom'].dt.strftime('%m/%d/%Y')
 
-    df['Day'] = df['day_nom']
-    df['Contract ID'] = df['contract_id']
-    df['Downstream Contract'] = df['downstream_contract']
-    df['Downstream BA'] = df['downstream_ba']
-    df['Rank'] = df['rank']
-    df['Delivery ID'] = df['delivery_id']
-    df = df.pivot_table(columns=['Contract ID','Delivery ID'], index='Day', values='day_nom_value', aggfunc='sum')
-    df = df.fillna(0)
-    df = df.reset_index()
-    df = df.to_html(index=False)
-    if not contract:
-        flash('No results found!')
-        return redirect('/')
-    else:
+#    df['Day'] = df['day_nom']
+#    df['Contract ID'] = df['contract_id']
+#    df['Downstream Contract'] = df['downstream_contract']
+#    df['Downstream BA'] = df['downstream_ba']
+#    df['Rank'] = df['rank']
+#    df['Delivery ID'] = df['delivery_id']
+#    df = df.pivot_table(columns=['Contract ID','Delivery ID'], index='Day', values='day_nom_value', aggfunc='sum')
+#    df = df.fillna(0)
+#    df = df.reset_index()
+#    df = df.to_html(index=False)
+#    if not contract:
+#        flash('No results found!')
+#        return redirect('/')
+#    else:
         # display results
-        table = Noms(df)
-        table.border = True
-    return render_template('dashboard.html', title='Dashboard', table=df)
+#        table = Noms(df)
+#        table.border = True
+#    return render_template('dashboard.html', title='Dashboard', table=df)
 
 @app.route('/nominate', methods=['GET', 'POST'])
 @login_required
@@ -413,7 +413,7 @@ def search_results(contract_id, begin_date, end_date):
 @login_required
 @admin_required
 @app.route('/update_nomination', methods=['POST'])
-def update_nomination():
+def dashboard_search():
     pk = request.form['pk']
     value = request.form['value']
     confirm_nom = Nom.query.filter_by(nom_id=pk).first()
@@ -424,3 +424,23 @@ def update_nomination():
         confirm_nom.confirmed_by = current_user.username
         db.session.commit()
     return json.dumps({'status':'OK'})
+
+
+@app.route('/search', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def dashboard_form():
+    form = DashboardSearchForm()
+    if form.validate_on_submit():
+        contract_id = form.contract_id.data
+        begin_date = form.begin_date.data
+        end_date = form.end_date.data
+        return dashboard_results(contract_id, begin_date, end_date)
+    return render_template("confirm_form.html", title='Search', form=form)
+
+@login_required
+@admin_required
+@app.route('/dashboard', methods=['GET', 'POST'])
+def dashboard_results(contract_id, begin_date, end_date):
+    results = Nom.query.filter(Nom.contract_id == contract_id, Nom.day_nom >= begin_date, Nom.day_nom <= end_date).all()
+    return render_template('dashboard.html', results=results, title='Dashboard')
