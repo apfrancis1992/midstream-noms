@@ -104,3 +104,8 @@ class Updates(db.Model):
     update = db.Column(db.String(1000))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+#class DownstreamContracts(db.Model):
+#    downstream_id = db.Column(db.Integer, primary_key=True)
+#    downstream_name = db.Column(db.String(64))
+#    downstream_ba = db.Column(db.Integer, index=True)

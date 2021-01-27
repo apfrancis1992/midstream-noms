@@ -50,10 +50,6 @@ function del(ID, title){
             <h3>Confirmations</h3>
             <br />
             <div class="panel panel-default">
-                <div class="panel-heading">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  Add New Employee
-                </button>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -69,7 +65,6 @@ function del(ID, title){
                                     <th>Delivery Point</th>
                                     <th>Nom Value</th>
                                     <th>Confirmed</th>
-                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,7 +79,6 @@ function del(ID, title){
                                     <td data-name="delivery_id" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.delivery_id}}</td>
                                     <td data-name="day_nom_value" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.day_nom_value}}</td>
                                     <td data-confirmed="confirmed" class="confirmed" data-type="number" data-pk="{{row.nom_id}}">{{row.confirmed}}</td>
-                                    <td><a href="javascript:del('{{row.id}}','{{row.name}}')" class="btn btn-primary">Delete</a></td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

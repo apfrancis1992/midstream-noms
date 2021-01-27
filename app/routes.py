@@ -182,7 +182,6 @@ def nominate():
                 old_nom.rank = form.rank.data
                 old_nom.delivery_id = form.delivery_id.data
                 old_nom.edit = True
-                old_nom.confirmed = False
                 old_nom.published_time = datetime.datetime.utcnow()
                 db.session.commit()
             else:
@@ -425,10 +424,27 @@ def dashboard_search():
         db.session.commit()
     return json.dumps({'status':'OK'})
 
+@login_required
+@user_required
+@app.route('/edit_nom', methods=['POST'])
+def edit_nomination():
+    pk = request.form['pk']
+    value = request.form['value']
+    confirm_nom = Nom.query.filter_by(nom_id=pk).first()
+    if not confirm_nom:
+        return json.dumps({'error':'data not found'})
+    else:
+        confirm_nom.day_nom_value = value
+        confirm_nom.user = current_user.username
+        confirm_nom.published_time = datetime.datetime.utcnow()
+        db.session.commit()
+    return json.dumps({'status':'OK'})
 
-@app.route('/search', methods=['GET', 'POST'])
+
+
 @login_required
 @admin_required
+@app.route('/search', methods=['GET', 'POST'])
 def dashboard_form():
     form = DashboardSearchForm()
     if form.validate_on_submit():

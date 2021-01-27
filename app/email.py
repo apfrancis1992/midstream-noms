@@ -35,3 +35,5 @@ def send_password_login_email(user):
                                          user=user, token=token),
                html_body=render_template('email/new_user.html',
                                          user=user, token=token))
+
+#def nom_alert():

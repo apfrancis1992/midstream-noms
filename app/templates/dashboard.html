@@ -19,23 +19,32 @@
 $(document).ready(function(){
     var dataTable = $('#sample_data').DataTable();
 
+    $('#sample_data').editable({
+        mode:'inline',
+        container:'body',
+        selector:'td.day_nom_value',
+        url:'/edit_nom',
+        title:'Confirmed',
+        type:'POST',
+        validate:function(value){
+            if($.trim(value) == '')
+            {
+                return 'This field is required';
+            }
+        }
+    });
+
 });
 
-function del(ID, title){
-    if (confirm("Are you sure you want to delete '" + title + "'")){
-        window.location.href = '/delete/' + ID;
-    }
-}
 
 </script>
 </head>
 
     <body>
         <div class="container">
-            <h3>Confirmations</h3>
+            <h3>Nominations</h3>
             <br />
             <div class="panel panel-default">
-            </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table id="sample_data" class="table table-bordered table-striped">
@@ -62,8 +71,8 @@ function del(ID, title){
                                     <td data-name="downstream_ba" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.downstream_ba}}</td>
                                     <td data-name="rank" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.rank}}</td>
                                     <td data-name="delivery_id" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.delivery_id}}</td>
-                                    <td data-name="day_nom_value" class="phone" data-type="text" data-pk="{{row.nom_id}}">{{row.day_nom_value}}</td>
-                                    <td data-confirmed="confirmed" class="confirmed" data-type="number" data-pk="{{row.nom_id}}">{{row.confirmed}}</td>
+                                    <td data-name="day_nom_value" class="day_nom_value" data-type="number" data-pk="{{row.nom_id}}">{{row.day_nom_value}}</td>
+                                    <td data-name="confirmed" class="confirmed" data-type="number" data-pk="{{row.nom_id}}">{{row.confirmed}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
