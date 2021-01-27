@@ -75,7 +75,7 @@ class AddUser(FlaskForm):
 class NomForm(FlaskForm):
     contract_id = SelectField('Contract ID', coerce=int)
     delivery_id = SelectField('Delivery Point')
-    day_nom_value = IntegerField('Nom in MMBTU', validators=[DataRequired()])
+    day_nom_value = IntegerField('Nom MMBTU/Day', validators=[DataRequired()])
     downstream_contract = IntegerField('Downstream Contract', validators=[DataRequired()])
     downstream_ba = IntegerField('Downstream BA', validators=[DataRequired()])
     rank = IntegerField('Rank', validators=[DataRequired()])
